@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REMI — Personal Defense, Designed for Your Life</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --ink: #111111;
+      --warm-white: #f2ede6;
+      --cream: #e8e0d4;
+      --khaki: #9a8b72;
+      --khaki-light: #b5a48e;
+      --muted: #5a5550;
+      --dim: #2e2b28;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--warm-white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 52px;
+      mix-blend-mode: normal;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      padding: 18px 52px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--warm-white);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-cta {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--warm-white);
+      padding: 10px 22px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--khaki-light);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+    }
+    .hero-aerial {
+      position: absolute;
+      top: 0; left: 0;
+      width: 55%;
+      height: 62%;
+      object-fit: cover;
+      opacity: 0.45;
+      filter: grayscale(30%);
+    }
+    .hero-subject {
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 54%;
+      height: 92%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.1) 50%, rgba(8,8,8,0.5) 100%),
+        linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.0) 50%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 52px 80px;
+      max-width: 560px;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      margin-bottom: 20px;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      color: var(--warm-white);
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--khaki-light);
+    }
+    .hero-body {
+      font-size: 1rem;
+      color: var(--cream);
+      opacity: 0.8;
+      max-width: 420px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--warm-white);
+      color: var(--black);
+      padding: 16px 36px;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--khaki-light); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .btn-ghost:hover { opacity: 1; }
+    .btn-ghost-arrow { font-size: 1.1rem; transition: transform 0.2s; }
+    .btn-ghost:hover .btn-ghost-arrow { transform: translateX(4px); }
+
+    .hero-tag {
+      position: absolute;
+      top: 44px; right: 52px;
+      z-index: 3;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      opacity: 0.5;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--dim);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 16px 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      padding: 0 40px;
+    }
+    .marquee-track .sep {
+      color: var(--muted);
+      padding: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── EDITORIAL STRIP ── */
+    .editorial {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+    .editorial-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .editorial-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: transform 0.7s ease;
+    }
+    .editorial-img:hover img { transform: scale(1.03); }
+    .editorial-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 72px;
+      background: var(--ink);
+    }
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      margin-bottom: 24px;
+    }
+    .editorial-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 28px;
+      color: var(--warm-white);
+    }
+    .editorial-heading em {
+      font-style: italic;
+      color: var(--khaki-light);
+    }
+    .editorial-p {
+      font-size: 0.95rem;
+      color: var(--cream);
+      opacity: 0.75;
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 16px;
+    }
+    .editorial-p + .editorial-p { margin-top: 4px; }
+    .editorial-link {
+      margin-top: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--khaki-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(154,139,114,0.3);
+      padding-bottom: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .editorial-link:hover {
+      color: var(--warm-white);
+      border-color: var(--warm-white);
+    }
+
+    /* ── PRODUCTS ── */
+    .products-section {
+      padding: 100px 52px;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 60px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 400;
+      color: var(--warm-white);
+      line-height: 1.1;
+    }
+    .section-link {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .section-link:hover { color: var(--warm-white); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .product-card {
+      background: var(--ink);
+      cursor: pointer;
+      group: true;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-img-wrap {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--dim);
+      position: relative;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(15%);
+      transition: transform 0.6s ease, filter 0.4s;
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.04);
+      filter: grayscale(0%);
+    }
+    .product-badge {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: var(--khaki);
+      color: var(--black);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      font-weight: 500;
+    }
+    .product-info {
+      padding: 24px 28px 32px;
+    }
+    .product-category {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      margin-bottom: 8px;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 6px;
+    }
+    .product-desc {
+      font-size: 0.82rem;
+      color: var(--cream);
+      opacity: 0.6;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price {
+      font-size: 1rem;
+      color: var(--warm-white);
+      font-weight: 400;
+    }
+    .add-btn {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--warm-white);
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .add-btn:hover { background: var(--khaki-light); }
+
+    /* ── PROOF STRIP ── */
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .proof-item {
+      padding: 48px 40px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .proof-item:last-child { border-right: none; }
+    .proof-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .proof-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--khaki);
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      padding: 120px 52px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .philosophy-label {
+      position: sticky;
+      top: 120px;
+    }
+    .philosophy-label .section-eyebrow { margin-bottom: 0; }
+    .philosophy-content {}
+    .philosophy-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--warm-white);
+      margin-bottom: 48px;
+    }
+    .philosophy-quote em {
+      font-style: italic;
+      color: var(--khaki-light);
+    }
+    .philosophy-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .philosophy-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 14px;
+    }
+    .philosophy-col p {
+      font-size: 0.88rem;
+      color: var(--cream);
+      opacity: 0.65;
+      line-height: 1.8;
+    }
+
+    /* ── CATEGORY CARDS ── */
+    .categories {
+      padding: 0 52px 100px;
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2px;
+    }
+    .cat-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .cat-card-inner {
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+    .cat-card:last-child .cat-card-inner { aspect-ratio: 1/1; }
+    .cat-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.55) grayscale(20%);
+      transition: transform 0.6s ease, filter 0.4s;
+    }
+    .cat-card:hover .cat-bg {
+      transform: scale(1.04);
+      filter: brightness(0.65) grayscale(5%);
+    }
+    .cat-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
+    }
+    .cat-content {
+      position: absolute;
+      bottom: 36px; left: 36px;
+    }
+    .cat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      margin-bottom: 10px;
+    }
+    .cat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 16px;
+    }
+    .cat-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.7;
+      transition: opacity 0.2s, gap 0.2s;
+    }
+    .cat-card:hover .cat-arrow {
+      opacity: 1;
+      gap: 14px;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--dim);
+      border-top: 1px solid var(--border);
+      padding: 96px 52px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .newsletter-text .section-eyebrow { margin-bottom: 20px; }
+    .newsletter-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--warm-white);
+      margin-bottom: 16px;
+    }
+    .newsletter-sub {
+      font-size: 0.9rem;
+      color: var(--cream);
+      opacity: 0.65;
+      line-height: 1.7;
+    }
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .newsletter-form input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--warm-white);
+      padding: 16px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-form input::placeholder { color: var(--muted); }
+    .newsletter-form input:focus { border-color: var(--khaki); }
+    .newsletter-form button {
+      background: var(--warm-white);
+      color: var(--black);
+      border: none;
+      padding: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter-form button:hover { background: var(--khaki-light); }
+    .newsletter-disclaimer {
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 52px 40px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.14em;
+      color: var(--warm-white);
+      margin-bottom: 16px;
+    }
+    .footer-brand-desc {
+      font-size: 0.82rem;
+      color: var(--cream);
+      opacity: 0.55;
+      line-height: 1.8;
+      max-width: 280px;
+    }
+    .footer-col h5 {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--khaki);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col ul a {
+      font-size: 0.85rem;
+      color: var(--cream);
+      opacity: 0.6;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-col ul a:hover { opacity: 1; }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+    .footer-legal {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .footer-social {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-social a {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--warm-white); }
+
+    /* ── PRODUCT PLACEHOLDER IMAGES ── */
+    .product-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dim);
+    }
+    .product-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      opacity: 0.2;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+
+    @media (max-width: 1024px) {
+      nav, nav.scrolled { padding: 20px 28px; }
+      .hero-content { padding: 0 28px 60px; }
+      .hero-aerial { width: 70%; }
+      .hero-subject { width: 65%; }
+      .editorial { grid-template-columns: 1fr; }
+      .editorial-img { aspect-ratio: 16/9; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .proof-strip { grid-template-columns: 1fr 1fr; }
+      .proof-item:nth-child(2) { border-right: none; }
+      .philosophy { grid-template-columns: 1fr; padding: 80px 28px; }
+      .philosophy-body { grid-template-columns: 1fr; gap: 32px; }
+      .categories { padding: 0 28px 80px; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .cat-card:last-child .cat-card-inner { aspect-ratio: 16/9; }
+      .newsletter { grid-template-columns: 1fr; padding: 60px 28px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .products-section { padding: 80px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">REMI</a>
+    <ul class="nav-links">
+      <li><a href="#products">Gear</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#training">Training</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#products" class="nav-cta">Shop Now</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img class="hero-aerial" src="hero-aerial.png" alt="" aria-hidden="true" />
+    <img class="hero-subject" src="hero-subject.png" alt="REMI — Personal Defense" />
+    <div class="hero-vignette"></div>
+    <span class="hero-tag">REMI</span>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Personal Defense — Redefined</p>
+      <h1 class="hero-headline">Built for the<br />life you've<br /><em>earned.</em></h1>
+      <p class="hero-body">Precision gear for the man whose greatest mission is the one waiting at home. Sophisticated. Discreet. Ready.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">Shop the Collection</a>
+        <a href="#philosophy" class="btn-ghost">Our Approach <span class="btn-ghost-arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee">
+      <span>Everyday Carry</span><span class="sep">·</span>
+      <span>Home Defense</span><span class="sep">·</span>
+      <span>Personal Protection</span><span class="sep">·</span>
+      <span>Precision Optics</span><span class="sep">·</span>
+      <span>Tactical Apparel</span><span class="sep">·</span>
+      <span>Concealed Carry</span><span class="sep">·</span>
+      <span>Safe Storage</span><span class="sep">·</span>
+      <span>Family Safety</span><span class="sep">·</span>
+      <span>Everyday Carry</span><span class="sep">·</span>
+      <span>Home Defense</span><span class="sep">·</span>
+      <span>Personal Protection</span><span class="sep">·</span>
+      <span>Precision Optics</span><span class="sep">·</span>
+      <span>Tactical Apparel</span><span class="sep">·</span>
+      <span>Concealed Carry</span><span class="sep">·</span>
+      <span>Safe Storage</span><span class="sep">·</span>
+      <span>Family Safety</span><span class="sep">·</span>
+    </div>
+  </div>
+
+  <!-- EDITORIAL -->
+  <section class="editorial" id="about">
+    <div class="editorial-img fade-in">
+      <img src="hero-editorial.png" alt="REMI — The Standard" />
+    </div>
+    <div class="editorial-text">
+      <p class="section-eyebrow fade-in">The REMI Standard</p>
+      <h2 class="editorial-heading fade-in fade-in-delay-1">Protection is a<br /><em>love language.</em></h2>
+      <p class="editorial-p fade-in fade-in-delay-2">
+        You built something worth protecting. A home. A family. A life with intention. REMI exists for the man who refuses to leave safety to chance — and refuses to compromise his standards to find it.
+      </p>
+      <p class="editorial-p fade-in fade-in-delay-2">
+        Every product in our lineup is vetted by professionals, refined for civilian life, and designed to disappear into your daily routine until the moment it matters.
+      </p>
+      <a href="#philosophy" class="editorial-link fade-in fade-in-delay-3">Read our approach →</a>
+    </div>
+  </section>
+
+  <!-- PROOF STRIP -->
+  <div class="proof-strip">
+    <div class="proof-item fade-in">
+      <div class="proof-number">12k+</div>
+      <div class="proof-label">Families Protected</div>
+    </div>
+    <div class="proof-item fade-in fade-in-delay-1">
+      <div class="proof-number">48hr</div>
+      <div class="proof-label">Shipping Nationwide</div>
+    </div>
+    <div class="proof-item fade-in fade-in-delay-2">
+      <div class="proof-number">100%</div>
+      <div class="proof-label">Vetted by Professionals</div>
+    </div>
+    <div class="proof-item fade-in fade-in-delay-3">
+      <div class="proof-number">5yr</div>
+      <div class="proof-label">Product Guarantee</div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Featured Gear</p>
+        <h2 class="section-title">The REMI<br />Collection</h2>
+      </div>
+      <a href="#" class="section-link">View All Products →</a>
+    </div>
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <div class="product-card fade-in">
+        <div class="product-img-wrap">
+          <div class="product-placeholder">
+            <svg class="product-placeholder-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="20" width="40" height="28" rx="2" fill="currentColor"/>
+              <rect x="36" y="32" width="16" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+              <circle cx="16" cy="48" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="product-badge">Bestseller</span>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Everyday Carry</p>
+          <h3 class="product-name">The Sentinel Holster</h3>
+          <p class="product-desc">IWB Kydex. Adjustable retention. Designed for full-day comfort under a button-down or flannel.</p>
+          <div class="product-footer">
+            <span class="product-price">$189</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card fade-in fade-in-delay-1">
+        <div class="product-img-wrap">
+          <div class="product-placeholder">
+            <svg class="product-placeholder-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="12" y="16" width="40" height="32" rx="3" fill="currentColor"/>
+              <rect x="20" y="24" width="24" height="3" rx="1" fill="currentColor" opacity="0.4"/>
+              <rect x="20" y="32" width="16" height="3" rx="1" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <span class="product-badge">New</span>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Safe Storage</p>
+          <h3 class="product-name">Bedside Quick-Access Safe</h3>
+          <p class="product-desc">Biometric + PIN. Mounts flush inside the nightstand drawer. 3-second access when every second matters.</p>
+          <div class="product-footer">
+            <span class="product-price">$349</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card fade-in fade-in-delay-2">
+        <div class="product-img-wrap">
+          <div class="product-placeholder">
+            <svg class="product-placeholder-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
+              <circle cx="32" cy="32" r="4" fill="currentColor"/>
+              <line x1="32" y1="12" x2="32" y2="20" stroke="currentColor" stroke-width="2"/>
+              <line x1="32" y1="44" x2="32" y2="52" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Precision Optics</p>
+          <h3 class="product-name">Low-Profile Red Dot Sight</h3>
+          <p class="product-desc">2 MOA. Motion-activated. Co-witnesses with iron sights. No fuss, no failure.</p>
+          <div class="product-footer">
+            <span class="product-price">$429</span>
+            <button class="add-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-label">
+      <p class="section-eyebrow">Why REMI</p>
+    </div>
+    <div class="philosophy-content">
+      <p class="philosophy-quote fade-in">
+        The best gear is the kind you forget you're carrying — until you <em>can't afford to.</em>
+      </p>
+      <div class="philosophy-body">
+        <div class="philosophy-col fade-in">
+          <h4>Designed for Real Life</h4>
+          <p>Not the range. Not the movies. Gear that works with your wardrobe, your schedule, and your reality as a parent, professional, and protector.</p>
+        </div>
+        <div class="philosophy-col fade-in fade-in-delay-1">
+          <h4>Vetted, Not Curated</h4>
+          <p>Every product earns its place through field testing with law enforcement and military veterans before it reaches our shelves.</p>
+        </div>
+        <div class="philosophy-col fade-in fade-in-delay-2">
+          <h4>No Posturing</h4>
+          <p>We don't sell bravado. We sell reliability. You know the difference, and so do we.</p>
+        </div>
+        <div class="philosophy-col fade-in fade-in-delay-3">
+          <h4>The Long Game</h4>
+          <p>Safety is a practice, not a purchase. Our training resources and community keep you sharp year-round.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories" id="training">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Shop by Need</p>
+        <h2 class="section-title">Find Your<br />Loadout</h2>
+      </div>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card fade-in">
+        <div class="cat-card-inner" style="aspect-ratio:16/9">
+          <div class="cat-bg" style="background-image: url('hero-aerial.png');"></div>
+          <div class="cat-overlay"></div>
+          <div class="cat-content">
+            <p class="cat-label">Category</p>
+            <h3 class="cat-title">Home Defense</h3>
+            <span class="cat-arrow">Shop Now →</span>
+          </div>
+        </div>
+      </div>
+      <div class="cat-card fade-in fade-in-delay-1">
+        <div class="cat-card-inner" style="aspect-ratio:1/1">
+          <div class="cat-bg" style="background-image: url('hero-editorial.png'); background-position: center top;"></div>
+          <div class="cat-overlay"></div>
+          <div class="cat-content">
+            <p class="cat-label">Category</p>
+            <h3 class="cat-title">Everyday Carry</h3>
+            <span class="cat-arrow">Shop Now →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="newsletter-text">
+      <p class="section-eyebrow">Stay Informed</p>
+      <h2 class="newsletter-heading">The Prepared<br />Father's Briefing.</h2>
+      <p class="newsletter-sub">Monthly. No noise. New gear, training insights, and the occasional field note from the professionals who test our products.</p>
+    </div>
+    <div>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="text" placeholder="First Name" />
+        <input type="email" placeholder="Email Address" />
+        <button type="submit">Subscribe — It's Free</button>
+        <p class="newsletter-disclaimer">No spam. Unsubscribe anytime. We treat your inbox the way we treat our gear — with respect.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">REMI</div>
+        <p class="footer-brand-desc">Personal defense gear for the man with everything to protect. Sophisticated. Vetted. Ready.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#">Everyday Carry</a></li>
+          <li><a href="#">Home Defense</a></li>
+          <li><a href="#">Safe Storage</a></li>
+          <li><a href="#">Optics & Accessories</a></li>
+          <li><a href="#">Apparel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Philosophy</a></li>
+          <li><a href="#">Training</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Warranty</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Legal & Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 REMI Defense, LLC. All rights reserved. Products sold for legal use only.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">X</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Intersection observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
